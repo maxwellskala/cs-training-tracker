@@ -15,4 +15,7 @@
 8. Restart the development server and make sure you can create a user and log in/out with them (this is making sure your DB is set up correctly). Again, open an issue if you have problems here.
 9. Finally, `npm run test` to make sure your test database is also working. Database stuff done!
 
-## Intial deploy (to Heroku!)
+## Initial deploy (to Heroku)
+1. Set up [Heroku](https://devcenter.heroku.com/articles/heroku-cli) if you haven't already.
+2. Create your Heroku app with the create-react-app buildpack: `heroku create [app_name]`.
+3. `cd client && npm run build` to build your client for production. Then `cd ..` and do `git add .` followed by `git commit -m "Add build to source control"`. Finally, `git push heroku master`.
