@@ -17,7 +17,7 @@
 
 ## Initial deploy (to Heroku)
 1. Set up [Heroku](https://devcenter.heroku.com/articles/heroku-cli) if you haven't already.
-2. Create your Heroku app with the create-react-app buildpack: `heroku create [app_name]`.
+2. Create your Heroku app: `heroku create [app_name]`.
 
 ### Database reprise
 1. `heroku addons:create heroku-postgresql:hobby-dev` to provision a free, basic database from Heroku.
