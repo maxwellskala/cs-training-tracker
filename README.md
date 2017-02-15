@@ -13,9 +13,15 @@
 6. Update `db/config/config.json` with the credentials you just created (i.e. key `[username]` to `"username"`, `[password_you_entered]` to `"password"` and `[db_name]` to `"database"`) in the `"development"` key.
 7. Repeat steps 4 - 6 with the same username but instead of `[db_name]` use `[db_name]_test` or something similar and update the `"test"` key instead of the `"development"` key.
 8. Restart the development server and make sure you can create a user and log in/out with them (this is making sure your DB is set up correctly). Again, open an issue if you have problems here.
-9. Finally, `npm run test` to make sure your test database is also working. Database stuff done!
+9. Finally, `npm run test` to make sure your test database is also working.
 
 ## Initial deploy (to Heroku)
 1. Set up [Heroku](https://devcenter.heroku.com/articles/heroku-cli) if you haven't already.
 2. Create your Heroku app with the create-react-app buildpack: `heroku create [app_name]`.
-3. `cd client && npm run build` to build your client for production. Then `cd ..` and do `git add .` followed by `git commit -m "Add build to source control"`. Finally, `git push heroku master`.
+
+### Database reprise
+1. `heroku addons:create heroku-postgresql:hobby-dev` to provision a free, basic database from Heroku.
+2. `heroku pg:psql --app [heroku_app_name] < node_modules/connect-pg-simple/table.sql`.
+
+## Deploy finale
+1. `cd client && npm run build` to build your client for production. Then add and commit the newly built files (I believe create-react-app adds `build/` to its .gitignore, so make sure to comment that out until you have a better build and deploy system) and `git push heroku master`.
