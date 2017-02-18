@@ -1,15 +1,15 @@
 {
   "development": {
-    "username": "boilerplate",
+    "username": "cs_training_tracker",
     "password": "test",
-    "database": "boilerplate_db",
+    "database": "cs_training_tracker_db",
     "host": "localhost",
     "dialect": "postgres"
   },
   "test": {
-    "username": "boilerplate",
+    "username": "cs_training_tracker",
     "password": "test",
-    "database": "boilerplate_db_test",
+    "database": "cs_training_tracker_db_test",
     "host": "127.0.0.1",
     "dialect": "postgres",
     "logging": false

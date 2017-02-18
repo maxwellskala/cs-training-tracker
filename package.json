@@ -1,7 +1,7 @@
 {
-  "name": "react-node-boilerplate",
+  "name": "cs-training-tracker",
   "version": "1.0.0",
-  "description": "Boilerplate code for spinning up React projects.",
+  "description": "Track your head clicking gainz in training_aim_csgo",
   "engines": {
     "node": "6.9.4"
   },
