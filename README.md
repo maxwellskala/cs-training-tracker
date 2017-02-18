@@ -1,6 +1,6 @@
 # Instructions for use (with Heroku)
 ## Getting started
-1. Clone repo and push to a remote of your choice.
+1. Fork repo and push to a remote of your choice.
 2. `npm install` in both top-level directory and client directory. From top-level directory, `npm run start`. Open browser to 127.0.0.1:3000 and there should be a welcome page. If there isn't, open an issue cuz I haven't seen that before. :P
 3. (Optional) Update your two `package.json` files (top-level and client/) with the name of your app and GitHub repo.
 
