@@ -90,9 +90,6 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <div className="App header">
-          <h2>Welcome to CS Training Tracker</h2>
-        </div>
         {this.renderUserBody()}
         {this.renderLogoutButton()}
       </div>
