@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import Client from '../data/Client';
 import SignupLoginForm from './SignupLoginForm';
-import logo from '../assets/logo.svg';
 import './App.css';
 
 // @TODO state seems fragile since we can accidentally remove an error key, fix that
@@ -93,7 +92,6 @@ class App extends Component {
     return (
       <div className="App">
         <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
           <h2>Welcome to React</h2>
         </div>
         <p className="App-intro">
