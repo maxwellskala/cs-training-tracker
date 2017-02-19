@@ -53,14 +53,6 @@ class App extends Component {
     );
   };
 
-  renderLogoutButton() {
-    const { user } = this.state;
-    if (user === null) {
-      return null;
-    }
-    return <button onClick={this.handleLogout}>Log out</button>;
-  };
-
   renderUserBody() {
     const { user, errors } = this.state;
     const loggedInMessageClassName = 'logged-in-message';
@@ -91,7 +83,6 @@ class App extends Component {
     return (
       <div className="App">
         {this.renderUserBody()}
-        {this.renderLogoutButton()}
       </div>
     );
   }
