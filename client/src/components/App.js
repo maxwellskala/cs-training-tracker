@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import Client from '../data/Client';
 import SignupLoginForm from './SignupLoginForm';
-import './App.css';
 
 // @TODO state seems fragile since we can accidentally remove an error key, fix that
 class App extends Component {
