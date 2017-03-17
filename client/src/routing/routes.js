@@ -1,7 +1,8 @@
 const routes = [
   { name: 'signup', path: '/signup' },
   { name: 'login', path: '/login' },
-  { name: 'home', path: '/home' }
+  { name: 'aim', path: '/aim' },
+  { name: 'loading', path: '/' }
 ];
 
 export default routes;

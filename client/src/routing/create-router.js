@@ -5,10 +5,10 @@ import browserPlugin from 'router5/plugins/browser';
 import routes from './routes';
 
 function configureRouter() {
-  return createRouter(routes)
+  return createRouter(routes, { defaultRoute: 'loading' })
     .usePlugin(loggerPlugin)
-    .usePlugin(browserPlugin)
-    .usePlugin(listenersPlugin);
+    .usePlugin(browserPlugin())
+    .usePlugin(listenersPlugin());
 };
 
 export default configureRouter;

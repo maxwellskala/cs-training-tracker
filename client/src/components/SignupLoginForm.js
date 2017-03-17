@@ -8,27 +8,26 @@ class SignupLoginForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      showLogin: true,
       [EMAIL]: '',
       [PASSWORD]: ''
     };
 
     this.getFormToggleText = this.getFormToggleText.bind(this);
-    this.handleFormToggle = this.handleFormToggle.bind(this);
     this.renderErrors = this.renderErrors.bind(this);
   };
 
-  getFormToggleText(showLogin) {
+  getFormToggleText() {
+    const { action, changeAction } = this.props;
     const className = 'toggle-form-text';
-    return showLogin
+    return action === 'login'
       ? (
           <p className={className}>
-            Don't have an account? <a onClick={this.handleFormToggle}>Signup</a>
+            Don't have an account? <a onClick={changeAction}>Signup</a>
           </p>
         )
       : (
           <p className={className}>
-            Already have an account? <a onClick={this.handleFormToggle}>Login</a>
+            Already have an account? <a onClick={changeAction}>Login</a>
           </p>
         );
   };
@@ -37,12 +36,6 @@ class SignupLoginForm extends Component {
     return (e) => {
       return this.setState({ [stateKey]: e.target.value });
     };
-  };
-
-  handleFormToggle() {
-    this.setState((prevState, props) => {
-      return { ...prevState, showLogin: !prevState.showLogin };
-    })
   };
 
   renderErrors() {
@@ -61,12 +54,11 @@ class SignupLoginForm extends Component {
   };
 
   render() {
-    const { onLogin, onSignup, onReceiveUser } = this.props;
-    const { showLogin, email, password } = this.state;
-    const clientHook = showLogin ? onLogin : onSignup;
+    const { action, onSubmit, onReceiveUser } = this.props;
+    const { email, password } = this.state;
     const handleSubmit = (e) => {
       e.preventDefault();
-      clientHook(
+      onSubmit(
         email,
         password,
         onReceiveUser
@@ -74,8 +66,8 @@ class SignupLoginForm extends Component {
     };
     return (
       <div className='SignupLoginForm'>
-        <h3>{showLogin ? 'Login' : 'Signup'}</h3>
-        {this.getFormToggleText(showLogin)}
+        <h3>{action === 'login' ? 'Login' : 'Signup'}</h3>
+        {this.getFormToggleText()}
         {this.renderErrors()}
         <form onSubmit={handleSubmit}>
           <label>
@@ -102,10 +94,11 @@ class SignupLoginForm extends Component {
 }
 
 SignupLoginForm.propTypes = {
-  onLogin: React.PropTypes.func.isRequired,
-  onSignup: React.PropTypes.func.isRequired,
+  action: React.PropTypes.string.isRequired,
+  onSubmit: React.PropTypes.func.isRequired,
   onReceiveUser: React.PropTypes.func.isRequired,
-  errors: React.PropTypes.array
-}
+  changeAction: React.PropTypes.func.isRequired,
+  errors: React.PropTypes.array,
+};
 
 export default SignupLoginForm;
