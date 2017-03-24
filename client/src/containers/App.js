@@ -1,33 +1,32 @@
 import React, { Component, createElement } from 'react';
-import { withRoute } from 'react-router5';
+import { routeNode } from 'react-router5';
 import Client from '../data/Client';
 import SignupLoginContainer from './SignupLoginContainer';
 import Loading from '../components/Loading';
 import AimContainer from './AimContainer';
 
-const components = {
-  loading: Loading,
+const COMPONENTS = {
   signup: SignupLoginContainer('signup'),
   login: SignupLoginContainer('login'),
-  aim: AimContainer
+  aim: AimContainer,
+  root: Loading
 };
 
-// @TODO state seems fragile since we can accidentally remove an error key, fix that
 class App extends Component {
   constructor(props, context) {
     super(props, context);
     this.state = {
-      user: null
+      user: null,
+      initialUserFetchCompleted: false
     };
     // @TODO refactor this garbage once class properties are legit
     this.handleReceiveUser = this.handleReceiveUser.bind(this);
     this.handleLogout = this.handleLogout.bind(this);
+    this.navigateToAim = this.navigateToAim.bind(this);
   };
 
-  componentDidMount() {
-    Client.checkSession((response) => {
-      this.handleReceiveUser(response.user);
-    });
+  navigateToAim() {
+    this.props.router.navigate('aim');
   };
 
   handleReceiveUser(user) {
@@ -35,7 +34,7 @@ class App extends Component {
     if (user) {
       this.setState(
         { user },
-        router.navigate('aim')
+        this.navigateToAim
       );
     } else {
       router.navigate('login');
@@ -45,15 +44,39 @@ class App extends Component {
   handleLogout() {
     Client.logout(
       (response) => {
-        this.setState({ user: null });
         this.props.router.navigate('login');
+        this.setState({ user: null });
       }
+    );
+  };
+
+  componentDidMount() {
+    setTimeout(() =>
+      Client.checkSession((response) => {
+        const { user } = response;
+        const { router } = this.props;
+        const nextState = { initialUserFetchCompleted: true };
+        if (user) {
+          this.setState(
+            { ...nextState, user },
+            this.navigateToAim
+          );
+        } else {
+          router.navigate('login');
+          this.setState(nextState);
+        }
+      }),
+      2000
     );
   };
 
   renderBody() {
     const { route } = this.props;
-    const { user } = this.state;
+    const { user, initialUserFetchCompleted } = this.state;
+    if (!initialUserFetchCompleted) {
+      return <Loading />;
+    }
+
     const segment = route.name.split('.')[0];
     const props = {};
     switch (segment) {
@@ -70,8 +93,7 @@ class App extends Component {
       default:
         break;
     }
-
-    return createElement(components[segment], props);
+    return createElement(COMPONENTS[segment], props);
   };
 
   render() {
@@ -83,4 +105,4 @@ class App extends Component {
   }
 }
 
-export default withRoute(App);
+export default routeNode('')(App);

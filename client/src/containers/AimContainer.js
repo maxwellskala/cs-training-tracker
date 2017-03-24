@@ -4,7 +4,7 @@ import { routeNode } from 'react-router5';
 const AimContainer = (props) => {
   return (
     <div>
-      You are logged in with email {props.email}
+      You are logged in with email {props.user.email}
       <button onClick={props.onLogout}>Logout</button>
     </div>
   );
