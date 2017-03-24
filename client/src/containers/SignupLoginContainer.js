@@ -30,14 +30,14 @@ function getSignupLoginContainer(action) {
       const validationErrors = response.validationErrors;
       if (validationErrors) {
         this.setState({
-          errors: { validationErrors }
+          errors: validationErrors
         });
         return;
       }
       const dataErrors = response.errors;
       if (dataErrors) {
         this.setState({
-          errors: { dataErrors }
+          errors: dataErrors
         });
         return;
       }
