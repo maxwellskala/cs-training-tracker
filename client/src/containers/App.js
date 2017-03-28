@@ -1,91 +1,110 @@
-import React, { Component } from 'react';
+import React, { Component, createElement } from 'react';
+import { routeNode } from 'react-router5';
 import Client from '../data/Client';
-import SignupLoginForm from '../components/SignupLoginForm';
+import SignupLoginContainer from './SignupLoginContainer';
+import AimContainer from './AimContainer';
+import Loading from '../components/Loading';
+import * as RouteNames from '../constants/RouteNames';
 
-// @TODO state seems fragile since we can accidentally remove an error key, fix that
+const COMPONENTS = {
+  [RouteNames.SIGNUP]: SignupLoginContainer(RouteNames.SIGNUP),
+  [RouteNames.LOGIN]: SignupLoginContainer(RouteNames.LOGIN),
+  [RouteNames.AIM]: AimContainer,
+  [RouteNames.ROOT]: Loading
+};
+
 class App extends Component {
-  constructor(props) {
-    super(props);
+  constructor(props, context) {
+    super(props, context);
     this.state = {
       user: null,
-      errors: {
-        signupLoginForm: []
-      }
+      initialUserFetchCompleted: false
     };
-
     // @TODO refactor this garbage once class properties are legit
-    this.handleSignupLoginResponse = this.handleSignupLoginResponse.bind(this);
+    this.handleReceiveUser = this.handleReceiveUser.bind(this);
     this.handleLogout = this.handleLogout.bind(this);
+    this.navigateToAim = this.navigateToAim.bind(this);
   };
 
-  componentDidMount() {
-    Client.checkSession((response) => {
-      const user = response.user;
-      if (user) {
-        this.setState({ user });
-      }
-    });
+  navigateToAim() {
+    this.props.router.navigate(RouteNames.AIM);
   };
 
-  handleSignupLoginResponse(response) {
-    const currentErrors = this.state.errors;
-    const validationErrors = response.validationErrors;
-    if (validationErrors) {
-      this.setState({
-        errors: { ...currentErrors, signupLoginForm: validationErrors }
-      });
-      return;
+  handleReceiveUser(user) {
+    const { router } = this.props;
+    if (user) {
+      this.setState(
+        { user },
+        this.navigateToAim
+      );
+    } else {
+      router.navigate(RouteNames.LOGIN);
     }
-    const dataErrors = response.errors;
-    if (dataErrors) {
-      this.setState({
-        errors: { ...currentErrors, signupLoginForm: dataErrors }
-      });
-      return;
-    }
-    const user = response.user;
-    this.setState({ user });
   };
 
   handleLogout() {
     Client.logout(
-      (response) => this.setState({ user: null })
+      (response) => {
+        this.props.router.navigate(RouteNames.LOGIN);
+        this.setState({ user: null });
+      }
     );
   };
 
-  renderUserBody() {
-    const { user, errors } = this.state;
-    const loggedInMessageClassName = 'logged-in-message';
-    if (user === null) {
-      return (
-        <SignupLoginForm
-          onLogin={Client.login}
-          onSignup={Client.signup}
-          onReceiveUser={this.handleSignupLoginResponse}
-          errors={errors.signupLoginForm}
-        />
-      );
-    } else if (!user.email) {
-      return (
-        <div className={loggedInMessageClassName}>
-          You're logged in as an unknown user, WTF!
-        </div>
-      );
-    }
-    return (
-      <div className={loggedInMessageClassName}>
-        Congrats! You are logged in with email {user.email}
-      </div>
+  componentDidMount() {
+    setTimeout(() =>
+      Client.checkSession((response) => {
+        const { user } = response;
+        const { router } = this.props;
+        const nextState = { initialUserFetchCompleted: true };
+        if (user) {
+          this.setState(
+            { ...nextState, user },
+            this.navigateToAim
+          );
+        } else {
+          router.navigate(RouteNames.LOGIN);
+          this.setState(nextState);
+        }
+      }),
+      2000
     );
+  };
+
+  renderBody() {
+    const { route } = this.props;
+    const { user, initialUserFetchCompleted } = this.state;
+    if (!initialUserFetchCompleted) {
+      return <Loading />;
+    }
+
+    const segment = route.name.split('.')[0];
+    const props = {};
+    switch (segment) {
+      case RouteNames.AIM:
+        props.user = user;
+        props.onLogout = this.handleLogout;
+        break;
+      case RouteNames.SIGNUP:
+        props.onReceiveUser = this.handleReceiveUser;
+        break;
+      case RouteNames.LOGIN:
+        props.onReceiveUser = this.handleReceiveUser;
+        break;
+      default:
+        break;
+    }
+    return createElement(COMPONENTS[segment], props);
   };
 
   render() {
     return (
       <div className="App">
-        {this.renderUserBody()}
+        {this.renderBody()}
       </div>
     );
   }
 }
 
-export default App;
+export { App };
+export default routeNode('')(App);

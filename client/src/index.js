@@ -1,9 +1,14 @@
-import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './containers/App';
+import createRouter from './routing/create-router';
+import routeApp from './routing/route-app';
 import './index.css';
 
-ReactDOM.render(
-  <App />,
-  document.getElementById('root')
-);
+const router = createRouter();
+const routedApp = routeApp(router);
+
+router.start(() => {
+  ReactDOM.render(
+    routedApp,
+    document.getElementById('root')
+  );
+});
