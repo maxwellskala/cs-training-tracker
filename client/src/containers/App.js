@@ -2,8 +2,8 @@ import React, { Component, createElement } from 'react';
 import { routeNode } from 'react-router5';
 import Client from '../data/Client';
 import SignupLoginContainer from './SignupLoginContainer';
-import Loading from '../components/Loading';
 import AimContainer from './AimContainer';
+import Loading from '../components/Loading';
 
 const COMPONENTS = {
   signup: SignupLoginContainer('signup'),
@@ -105,4 +105,5 @@ class App extends Component {
   }
 }
 
+export { App };
 export default routeNode('')(App);
