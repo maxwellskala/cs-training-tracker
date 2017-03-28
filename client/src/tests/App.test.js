@@ -1,61 +1,52 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { shallow } from 'enzyme';
+import { wrapAndSetState } from './utils';
+import { App } from '../containers/App';
+import AimContainer from '../containers/AimContainer';
+import Loading from '../components/Loading';
 
-import { wrapAndSetState, setStateAndRender } from './utils';
-import App from '../components/App';
-import SignupLoginForm from '../components/SignupLoginForm';
-
-const USER_EMAIL = 'test@test.com';
-const USERFUL_STATE = {
-  user: {
-    email: USER_EMAIL
-  }
+const USER_FETCHED_STATE = {
+  initialUserFetchCompleted: true
 };
 
 describe('<App />', () => {
   it('renders without crashing', () => {
     const div = document.createElement('div');
-    ReactDOM.render(<App />, div);
+    ReactDOM.render(
+      <App />,
+      div
+    );
   });
 
-  it('renders SignupLoginForm if no user in state', () => {
-    const app = shallow(<App />);
-    expect(app.find(SignupLoginForm).length).toBe(1);
+  it('renders Loading if initialUserFetchCompleted === false', () => {
+    const state = { initialUserFetchCompleted: false };
+    const route = { name: 'aim' }; // should be overridden by initialUserFetchCompleted
+    const app = wrapAndSetState(<App route={route} />, state);
+    expect(app.find(Loading).length).toBe(1);
   });
 
-  it('does not render SignupLoginForm if user in state', () => {
-    const app = wrapAndSetState(<App />, USERFUL_STATE);
-    expect(app.find(SignupLoginForm).length).toBe(0);
+
+  it('renders Loading if route.name === "root"', () => {
+    const route = { name: 'root' };
+    const app = wrapAndSetState(<App route={route} />, USER_FETCHED_STATE);
+    expect(app.find(Loading).length).toBe(1);
   });
 
-  it('does not render logout button if no user in state', () => {
-    const userLessState = {
-      user: null
-    };
-    const app = setStateAndRender(<App />, userLessState);
-    const buttons = app.find('button');
-    expect(buttons.length).toBe(1);
-    expect(buttons.text()).toContain('Submit');
+  xit('renders SignupLoginForm if route.name === "login"', () => {
+    const route = { name: 'login' };
+    const app = wrapAndSetState(<App route={route} />, USER_FETCHED_STATE);
+    expect(app.find('.SignupLoginForm').length).toBe(1);
   });
 
-  it('renders a welcome message with the user email if user in state', () => {
-    const rendered = setStateAndRender(<App />, USERFUL_STATE);
-    expect(rendered.find('.logged-in-message').text()).toContain(USER_EMAIL);
+  xit('renders SignupLoginForm if route.name === "signup"', () => {
+    const route = { name: 'signup' };
+    const app = wrapAndSetState(<App route={route} />, USER_FETCHED_STATE);
+    expect(app.find('.SignupLoginForm').length).toBe(1);
   });
 
-  it('renders a warning message if user in state but user has no email', () => {
-    const state = {
-      user: {}
-    };
-    const rendered = setStateAndRender(<App />, state);
-    expect(rendered.find('.logged-in-message').text()).toContain('WTF');
-  });
-
-  it('renders a logout button if user in state', () => {
-    const rendered = setStateAndRender(<App />, USERFUL_STATE);
-    const buttons = rendered.find('button');
-    expect(buttons.length).toBe(1);
-    expect(buttons.text()).toContain('Log out');
+  it('renders AimContainer if route.name === "aim"', () => {
+    const route = { name: 'aim' };
+    const app = wrapAndSetState(<App route={route} />, USER_FETCHED_STATE);
+    expect(app.find(AimContainer).length).toBe(1);
   });
 })
