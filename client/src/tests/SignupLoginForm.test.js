@@ -1,7 +1,7 @@
 import React from 'react';
-
 import { wrap } from './utils';
 import SignupLoginForm from '../components/SignupLoginForm';
+import * as RouteNames from '../constants/RouteNames';
 
 const EMPTY_FUNCTION = () => {};
 const EMPTY_PROPS = {
@@ -10,8 +10,8 @@ const EMPTY_PROPS = {
   changeAction: EMPTY_FUNCTION,
   errors: [],
 };
-const LOGIN_PROPS = { action: 'login', ...EMPTY_PROPS };
-const SIGNUP_PROPS = { action: 'signup', ...EMPTY_PROPS };
+const LOGIN_PROPS = { action: RouteNames.LOGIN, ...EMPTY_PROPS };
+const SIGNUP_PROPS = { action: RouteNames.SIGNUP, ...EMPTY_PROPS };
 const ERRORS = ['This is an error', 'As is this'];
 const ERRORS_LENGTH = ERRORS.length;
 

@@ -4,12 +4,13 @@ import Client from '../data/Client';
 import SignupLoginContainer from './SignupLoginContainer';
 import AimContainer from './AimContainer';
 import Loading from '../components/Loading';
+import * as RouteNames from '../constants/RouteNames';
 
 const COMPONENTS = {
-  signup: SignupLoginContainer('signup'),
-  login: SignupLoginContainer('login'),
-  aim: AimContainer,
-  root: Loading
+  [RouteNames.SIGNUP]: SignupLoginContainer(RouteNames.SIGNUP),
+  [RouteNames.LOGIN]: SignupLoginContainer(RouteNames.LOGIN),
+  [RouteNames.AIM]: AimContainer,
+  [RouteNames.ROOT]: Loading
 };
 
 class App extends Component {
@@ -26,7 +27,7 @@ class App extends Component {
   };
 
   navigateToAim() {
-    this.props.router.navigate('aim');
+    this.props.router.navigate(RouteNames.AIM);
   };
 
   handleReceiveUser(user) {
@@ -37,14 +38,14 @@ class App extends Component {
         this.navigateToAim
       );
     } else {
-      router.navigate('login');
+      router.navigate(RouteNames.LOGIN);
     }
   };
 
   handleLogout() {
     Client.logout(
       (response) => {
-        this.props.router.navigate('login');
+        this.props.router.navigate(RouteNames.LOGIN);
         this.setState({ user: null });
       }
     );
@@ -62,7 +63,7 @@ class App extends Component {
             this.navigateToAim
           );
         } else {
-          router.navigate('login');
+          router.navigate(RouteNames.LOGIN);
           this.setState(nextState);
         }
       }),
@@ -80,14 +81,14 @@ class App extends Component {
     const segment = route.name.split('.')[0];
     const props = {};
     switch (segment) {
-      case 'aim':
+      case RouteNames.AIM:
         props.user = user;
         props.onLogout = this.handleLogout;
         break;
-      case 'signup':
+      case RouteNames.SIGNUP:
         props.onReceiveUser = this.handleReceiveUser;
         break;
-      case 'login':
+      case RouteNames.LOGIN:
         props.onReceiveUser = this.handleReceiveUser;
         break;
       default:

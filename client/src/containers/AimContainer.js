@@ -1,5 +1,6 @@
 import React from 'react';
 import { routeNode } from 'react-router5';
+import * as RouteNames from '../constants/RouteNames';
 
 const AimContainer = (props) => {
   return (
@@ -15,4 +16,4 @@ AimContainer.propTypes = {
   onLogout: React.PropTypes.func.isRequired
 };
 
-export default routeNode('aim')(AimContainer);
+export default routeNode(RouteNames.AIM)(AimContainer);

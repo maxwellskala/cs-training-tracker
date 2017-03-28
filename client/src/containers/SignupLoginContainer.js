@@ -2,12 +2,13 @@ import React, { Component } from 'react';
 import { routeNode } from 'react-router5';
 import Client from '../data/Client';
 import SignupLoginForm from '../components/SignupLoginForm';
+import * as RouteNames from '../constants/RouteNames';
 
-function getAlternateAction(action) {
-  return action === 'signup' ? 'login' : 'signup';
+function getAlternateRoute(route) {
+  return route === RouteNames.SIGNUP ? RouteNames.LOGIN : RouteNames.SIGNUP;
 }
 
-function getSignupLoginContainer(action) {
+function getSignupLoginContainer(route) {
   class SignupLoginContainer extends Component {
     constructor(props) {
       super(props);
@@ -16,12 +17,12 @@ function getSignupLoginContainer(action) {
       };
 
       this.handleSignupLoginResponse = this.handleSignupLoginResponse.bind(this);
-      this.changeAction = this.changeAction.bind(this);
+      this.changeRoute = this.changeRoute.bind(this);
     };
 
-    changeAction() {
+    changeRoute() {
       this.props.router.navigate(
-        getAlternateAction(action)
+        getAlternateRoute(route)
       );
     };
 
@@ -45,15 +46,15 @@ function getSignupLoginContainer(action) {
     }
 
     render() {
-      const clientAction = Client[action];
+      const clientAction = Client[route];
 
       return (
         <SignupLoginForm
-          action={action}
+          action={route}
           onSubmit={clientAction}
           onReceiveUser={this.handleSignupLoginResponse}
           errors={this.state.errors}
-          changeAction={this.changeAction}
+          changeAction={this.changeRoute}
         />
       );
     };
@@ -63,7 +64,7 @@ function getSignupLoginContainer(action) {
     onReceiveUser: React.PropTypes.func.isRequired
   };
 
-  return routeNode(action)(SignupLoginContainer);
+  return routeNode(route)(SignupLoginContainer);
 }
 
 export default getSignupLoginContainer;

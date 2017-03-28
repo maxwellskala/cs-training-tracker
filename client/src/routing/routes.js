@@ -1,8 +1,10 @@
+import * as RouteNames from '../constants/RouteNames';
+
 const routes = [
-  { name: 'root', path: '/' },
-  { name: 'signup', path: '/signup' },
-  { name: 'login', path: '/login' },
-  { name: 'aim', path: '/aim' }
+  { name: RouteNames.ROOT, path: '/' },
+  { name: RouteNames.SIGNUP, path: '/signup' },
+  { name: RouteNames.LOGIN, path: '/login' },
+  { name: RouteNames.AIM, path: '/aim' }
 ];
 
 export default routes;
