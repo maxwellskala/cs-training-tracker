@@ -1,16 +1,14 @@
-import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './containers/App';
-import { RouterProvider } from 'react-router5';
 import createRouter from './routing/create-router';
+import routeApp from './routing/route-app';
 import './index.css';
 
 const router = createRouter();
-const app = <RouterProvider router={router}><App /></RouterProvider>;
+const routedApp = routeApp(router);
 
 router.start(() => {
   ReactDOM.render(
-    app,
+    routedApp,
     document.getElementById('root')
   );
 });
