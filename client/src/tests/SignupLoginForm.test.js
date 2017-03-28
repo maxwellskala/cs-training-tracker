@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { wrap, wrapAndRender } from './utils';
+import { wrap } from './utils';
 import SignupLoginForm from '../components/SignupLoginForm';
 
 const EMPTY_FUNCTION = () => {};
@@ -17,7 +17,7 @@ const ERRORS_LENGTH = ERRORS.length;
 
 describe('<SignupLoginForm />', () => {
   it('shows login header when props.action === "login"', () => {
-    const signupLoginForm = wrapAndRender(
+    const signupLoginForm = wrap(
       <SignupLoginForm { ...LOGIN_PROPS } />
     );
     const h3s = signupLoginForm.find('h3');
@@ -26,7 +26,7 @@ describe('<SignupLoginForm />', () => {
   });
 
   it('shows signup toggle when props.action === "login"', () => {
-    const signupLoginForm = wrapAndRender(
+    const signupLoginForm = wrap(
       <SignupLoginForm { ...LOGIN_PROPS } />
     );
     const anchors = signupLoginForm.find('a');
@@ -35,7 +35,7 @@ describe('<SignupLoginForm />', () => {
   });
 
   it('shows signup header when props.action === "signup"', () => {
-    const signupLoginForm = wrapAndRender(
+    const signupLoginForm = wrap(
       <SignupLoginForm { ...SIGNUP_PROPS } />
     );
     const h3s = signupLoginForm.find('h3');
@@ -44,7 +44,7 @@ describe('<SignupLoginForm />', () => {
   });
 
   it('shows login toggle when showLogin === false', () => {
-    const signupLoginForm = wrapAndRender(
+    const signupLoginForm = wrap(
       <SignupLoginForm { ...SIGNUP_PROPS } />
     );
     const anchors = signupLoginForm.find('a');
@@ -53,7 +53,7 @@ describe('<SignupLoginForm />', () => {
   });
 
   it('does not render .errors-container when no errors', () => {
-    const signupLoginForm = wrapAndRender(
+    const signupLoginForm = wrap(
       <SignupLoginForm { ...SIGNUP_PROPS } />
     );
     expect(signupLoginForm.find('.errors-container').length).toBe(0);
@@ -65,7 +65,7 @@ describe('<SignupLoginForm />', () => {
       ...LOGIN_PROPS,
       errors
     };
-    const signupLoginForm = wrapAndRender(
+    const signupLoginForm = wrap(
       <SignupLoginForm {...props} />
     );
     expect(signupLoginForm.find('.errors-container').length).toBe(1);
@@ -76,7 +76,7 @@ describe('<SignupLoginForm />', () => {
       ...LOGIN_PROPS,
       errors: ERRORS
     };
-    const signupLoginForm = wrapAndRender(
+    const signupLoginForm = wrap(
       <SignupLoginForm {...props} />
     );
     expect(signupLoginForm.find('.errors-container .error').length)
