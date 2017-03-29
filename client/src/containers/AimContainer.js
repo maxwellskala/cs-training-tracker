@@ -2,11 +2,11 @@ import React from 'react';
 import { routeNode } from 'react-router5';
 import * as RouteNames from '../constants/RouteNames';
 
-const AimContainer = (props) => {
+const AimContainer = ({ user, onLogout }) => {
   return (
     <div>
-      You are logged in with email {props.user.email}
-      <button onClick={props.onLogout}>Logout</button>
+      You are logged in with email {user.email}
+      <button onClick={onLogout}>Logout</button>
     </div>
   );
 }
