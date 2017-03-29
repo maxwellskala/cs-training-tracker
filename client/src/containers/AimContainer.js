@@ -35,4 +35,5 @@ AimContainer.propTypes = {
   router: React.PropTypes.object.isRequired
 };
 
+export { AimContainer }; // for testing
 export default routeNode(RouteNames.AIM)(AimContainer);

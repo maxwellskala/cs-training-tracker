@@ -26,7 +26,6 @@ describe('<App />', () => {
     expect(app.find(Loading).length).toBe(1);
   });
 
-
   it('renders Loading if route.name === "root"', () => {
     const route = { name: RouteNames.ROOT };
     const app = wrapAndSetState(<App route={route} />, USER_FETCHED_STATE);
