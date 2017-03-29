@@ -4,11 +4,10 @@ import AimNav from '../components/AimNav';
 import AddSession from '../components/AddSession';
 import History from '../components/History';
 import AddConfig from '../components/AddConfig';
-import Loading from '../components/Loading';
 import * as RouteNames from '../constants/RouteNames';
 
 const COMPONENTS = {
-  [RouteNames.AIM]: Loading,
+  [RouteNames.AIM]: AddSession, // @TODO make this unnecessary, it sucks
   [RouteNames.AIM_ADD_SESSION]: AddSession,
   [RouteNames.AIM_HISTORY]: History,
   [RouteNames.AIM_ADD_CONFIG]: AddConfig
