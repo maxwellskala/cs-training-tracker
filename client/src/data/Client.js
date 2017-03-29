@@ -14,7 +14,7 @@ function prepareErrors(response) {
 }
 
 function checkSession(cb) {
-  return fetch('api/user', {
+  return fetch('/api/user', {
     headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/json'
@@ -28,7 +28,7 @@ function checkSession(cb) {
 }
 
 function signup(email, password, cb) {
-  return fetch('api/user/signup', {
+  return fetch('/api/user/signup', {
     headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/json'
@@ -45,7 +45,7 @@ function signup(email, password, cb) {
 }
 
 function login(email, password, cb) {
-  return fetch('api/user/login', {
+  return fetch('/api/user/login', {
     headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/json'
@@ -63,7 +63,7 @@ function login(email, password, cb) {
 }
 
 function logout(cb) {
-  return fetch('api/user/logout', {
+  return fetch('/api/user/logout', {
     headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/json'
