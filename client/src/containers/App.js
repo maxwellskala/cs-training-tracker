@@ -27,7 +27,7 @@ class App extends Component {
   };
 
   navigateToAim() {
-    this.props.router.navigate(RouteNames.AIM);
+    this.props.router.navigate(RouteNames.AIM_ADD_SESSION);
   };
 
   handleReceiveUser(user) {
