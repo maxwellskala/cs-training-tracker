@@ -27,7 +27,12 @@ class App extends Component {
   };
 
   navigateToAim() {
-    this.props.router.navigate(RouteNames.AIM_ADD_SESSION);
+    const { router, route } = this.props;
+    const segments = route.name.split('.');
+    if (segments[0] === RouteNames.AIM && segments.length >= 2) {
+      return; // already at an aim route
+    }
+    router.navigate(RouteNames.AIM_ADD_SESSION);
   };
 
   handleReceiveUser(user) {
