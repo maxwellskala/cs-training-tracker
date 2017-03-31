@@ -6,12 +6,10 @@ class ConfigList extends Component {
     super(props);
     this.state = {
       openConfig: null,
-      selectedConfigs: []
     };
 
     this.renderConfigs = this.renderConfigs.bind(this);
     this.handleConfigOpenChange = this.handleConfigOpenChange.bind(this);
-    this.handleConfigSelectChange = this.handleConfigSelectChange.bind(this);
   };
 
   handleConfigOpenChange(configId) {
@@ -23,22 +21,15 @@ class ConfigList extends Component {
     });
   };
 
-  handleConfigSelectChange(configId) {
-    this.setState((prevState) => {
-      const prevSelectedConfigs = prevState.selectedConfigs;
-      if (prevSelectedConfigs.includes(configId)) {
-        const newSelectedConfigs = prevSelectedConfigs.filter((id) => {
-          return id !== configId;
-        });
-        return { selectedConfigs: newSelectedConfigs };
-      }
-      return { selectedConfigs: prevSelectedConfigs.concat([configId]) };
-    });
-  };
-
   renderConfigs() {
-    const { openConfig, selectedConfigs } = this.state;
-    return this.props.configs.map((config) => {
+    const {
+      configs,
+      selectable,
+      onSelectedConfigsChange,
+      selectedConfigs
+    } = this.props;
+    const { openConfig } = this.state;
+    return configs.map((config) => {
       const configId = config.id;
       const open = configId === openConfig;
       const selected = selectedConfigs.includes(configId);
@@ -48,9 +39,9 @@ class ConfigList extends Component {
           config={config}
           isOpen={open}
           isSelected={selected}
-          selectable={this.props.selectable}
+          selectable={selectable}
           onOpenChange={this.handleConfigOpenChange}
-          onSelectChange={this.handleConfigSelectChange}
+          onSelectChange={onSelectedConfigsChange}
         />
       );
     });
@@ -70,7 +61,9 @@ class ConfigList extends Component {
 
 ConfigList.propTypes = {
   configs: React.PropTypes.array.isRequired,
-  selectable: React.PropTypes.bool.isRequired
+  selectable: React.PropTypes.bool.isRequired,
+  selectedConfigs: React.PropTypes.array.isRequired,
+  onSelectedConfigsChange: React.PropTypes.func.isRequired
 };
 
 export default ConfigList;

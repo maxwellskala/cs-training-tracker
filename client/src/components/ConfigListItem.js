@@ -37,26 +37,11 @@ const renderDetails = (isOpen, config) => {
   );
 };
 
-const renderRow = (
-  config,
-  onSelectChange,
-  selectable,
-  isSelected
-) => {
-  const onChange = () => onSelectChange(config.id);
-  if (selectable) {
-    return (
-      <span>
-        {config.name}
-        <input
-          type='checkbox'
-          onChange={onChange}
-          checked={isSelected}
-        />
-      </span>
-    );
+const renderCheckbox = (selectable, isSelected, onChange) => {
+  if (!selectable) {
+    return null;
   }
-  return <span>{name}</span>;
+  return <input type='checkbox' onChange={onChange} checked={isSelected} />;
 };
 
 const ConfigListItem = ({
@@ -67,10 +52,12 @@ const ConfigListItem = ({
   onOpenChange,
   onSelectChange
 }) => {
+  const handleSelectChange = () => onSelectChange(config.id);
   const onClick = () => onOpenChange(config.id);
   return (
-    <li className='ConfigListItem' onClick={onClick}>
-      {renderRow(config, onSelectChange, selectable, isSelected)}
+    <li className='ConfigListItem'>
+      <span onClick={onClick}>{config.name}</span>
+      {renderCheckbox(selectable, isSelected, handleSelectChange)}
       {renderDetails(isOpen, config)}
     </li>
   );
