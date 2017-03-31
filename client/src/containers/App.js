@@ -18,10 +18,12 @@ class App extends Component {
     super(props, context);
     this.state = {
       user: null,
-      initialUserFetchCompleted: false
+      initialUserFetchCompleted: false,
+      configs: null
     };
     // @TODO refactor this garbage once class properties are legit
     this.handleReceiveUser = this.handleReceiveUser.bind(this);
+    this.handleFetchConfigs = this.handleFetchConfigs.bind(this);
     this.handleLogout = this.handleLogout.bind(this);
     this.navigateToAim = this.navigateToAim.bind(this);
   };
@@ -45,6 +47,19 @@ class App extends Component {
     } else {
       router.navigate(RouteNames.LOGIN);
     }
+  };
+
+  handleFetchConfigs() {
+    const { user } = this.state;
+    if (!user) {
+      return;
+    }
+    Client.fetchConfigs(
+      user.id,
+      (response) => {
+        this.setState({ configs: response });
+      }
+    );
   };
 
   handleLogout() {
@@ -78,7 +93,7 @@ class App extends Component {
 
   renderBody() {
     const { route } = this.props;
-    const { user, initialUserFetchCompleted } = this.state;
+    const { user, initialUserFetchCompleted, configs } = this.state;
     if (!initialUserFetchCompleted) {
       return <Loading />;
     }
@@ -88,6 +103,8 @@ class App extends Component {
     switch (segment) {
       case RouteNames.AIM:
         props.user = user;
+        props.fetchConfigs = this.handleFetchConfigs;
+        props.configs = configs;
         props.onLogout = this.handleLogout;
         break;
       case RouteNames.SIGNUP:
