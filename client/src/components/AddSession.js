@@ -38,6 +38,7 @@ const parseConfigScores = (configs, selectedConfigs, scores) => {
   return filteredConfigs.map((config) => {
     const score = scores[config.id] || 0;
     return {
+      id: config.id,
       name: config.name,
       score: score,
       maximum: config.count
