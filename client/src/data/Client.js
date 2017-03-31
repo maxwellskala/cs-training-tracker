@@ -76,5 +76,66 @@ function logout(cb) {
   .then(cb);
 }
 
-const Client = { checkSession, signup, login, logout };
+function fetchConfigs(userId, cb) {
+  const fakeResponse = [
+    {
+      user: 1,
+      name: 'config1',
+      weapon: 'AK-47',
+      distance: 2,
+      count: 100,
+      shotsToKill: 1,
+      size: '10R',
+      delay: 0.25,
+      duration: 0.5
+    },
+    {
+      user: 1,
+      name: 'config2',
+      weapon: 'AK-47',
+      distance: 2,
+      count: 25,
+      shotsToKill: 5,
+      size: '10R',
+      delay: 0,
+      duration: 1.25
+    },
+    {
+      user: 1,
+      name: 'config3',
+      weapon: 'AK-47',
+      distance: 2,
+      count: 25,
+      shotsToKill: 5,
+      size: '8R',
+      delay: 0,
+      duration: 1.25
+    },
+    {
+      user: 1,
+      name: 'config4',
+      weapon: 'AK-47',
+      distance: 3,
+      count: 25,
+      shotsToKill: 1,
+      size: 'HEAD',
+      delay: 0,
+      duration: 1.0
+    },
+    {
+      user: 1,
+      name: 'config5',
+      weapon: 'AK-47',
+      distance: 4,
+      count: 25,
+      shotsToKill: 1,
+      size: 'HEAD',
+      delay: 0,
+      duration: 1.0
+    },
+  ];
+  cb(fakeResponse);
+}
+
+const Client = { checkSession, signup, login, logout, fetchConfigs };
 export default Client;
