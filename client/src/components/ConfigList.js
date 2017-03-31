@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import ConfigListItem from '../components/ConfigListItem';
 
 class ConfigList extends Component {
-  constructor(props, context) {
-    super(props, context);
+  constructor(props) {
+    super(props);
     this.state = {
       openConfig: null,
       selectedConfigs: []
