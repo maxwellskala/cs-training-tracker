@@ -79,6 +79,7 @@ function logout(cb) {
 function fetchConfigs(userId, cb) {
   const fakeResponse = [
     {
+      id: 1,
       user: 1,
       name: 'config1',
       weapon: 'AK-47',
@@ -90,6 +91,7 @@ function fetchConfigs(userId, cb) {
       duration: 0.5
     },
     {
+      id: 2,
       user: 1,
       name: 'config2',
       weapon: 'AK-47',
@@ -101,6 +103,7 @@ function fetchConfigs(userId, cb) {
       duration: 1.25
     },
     {
+      id: 3,
       user: 1,
       name: 'config3',
       weapon: 'AK-47',
@@ -112,6 +115,7 @@ function fetchConfigs(userId, cb) {
       duration: 1.25
     },
     {
+      id: 4,
       user: 1,
       name: 'config4',
       weapon: 'AK-47',
@@ -123,6 +127,7 @@ function fetchConfigs(userId, cb) {
       duration: 1.0
     },
     {
+      id: 5,
       user: 1,
       name: 'config5',
       weapon: 'AK-47',
