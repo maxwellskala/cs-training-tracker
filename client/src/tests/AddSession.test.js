@@ -57,9 +57,16 @@ describe('<AddSession />', () => {
     expect(wrapped.find('button').at(0).text()).toEqual('Clone previous session');
   });
 
-  it('renders "Next" button when state.step === STEPS.chooseConfigs', () => {
-    const state = { step: STEPS.chooseConfigs };
+  it('does not render "Next" button when state.step === STEPS.chooseConfigs and state.selectedConfigs.length === 0', () => {
+    const state = { step: STEPS.chooseConfigs, selectedConfigs: [] };
     const wrapped = wrapAndSetState(<AddSession configs={CONFIGS} />, state);
+    expect(wrapped.find('button').length).toBe(1);
+  });
+
+  it('renders "Next" button when state.step === STEPS.chooseConfigs and state.selectedConfigs.length > 0', () => {
+    const state = { step: STEPS.chooseConfigs, selectedConfigs: [1] };
+    const wrapped = wrapAndSetState(<AddSession configs={CONFIGS} />, state);
+    expect(wrapped.find('button').length).toBe(2);
     expect(wrapped.find('button').at(1).text()).toEqual('Next');
   });
 

@@ -60,6 +60,7 @@ class AddSession extends Component {
     this.handleConfigSelectChange = this.handleConfigSelectChange.bind(this);
     this.handleConfigOpenChange = this.handleConfigOpenChange.bind(this);
     this.handleUpdateConfigScore = this.handleUpdateConfigScore.bind(this);
+    this.renderNextButton = this.renderNextButton.bind(this);
   };
 
   handleStepChange() {
@@ -84,6 +85,13 @@ class AddSession extends Component {
     );
   };
 
+  renderNextButton() {
+    if (!this.state.selectedConfigs.length > 0) {
+      return null;
+    }
+    return <button onClick={this.handleStepChange}>Next</button>;
+  };
+
   render() {
     const { configs } = this.props;
     const {
@@ -104,7 +112,7 @@ class AddSession extends Component {
             onSelectedConfigsChange={this.handleConfigSelectChange}
             onOpenConfigsChange={this.handleConfigOpenChange}
           />
-          <button onClick={this.handleStepChange}>Next</button>
+          {this.renderNextButton()}
         </div>
       );
     }
