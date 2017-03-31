@@ -4,12 +4,15 @@ import { AimContainer } from '../containers/AimContainer';
 import AddSession from '../components/AddSession';
 import History from '../components/History';
 import AddConfig from '../components/AddConfig';
+import Loading from '../components/Loading';
 import AimNav from '../components/AimNav';
 import * as RouteNames from '../constants/RouteNames';
 
 const DEFAULT_PROPS = {
   user: {},
   onLogout: () => {},
+  fetchConfigs: () => {},
+  configs: [],
   route: { name: RouteNames.AIM_ADD_SESSION },
   router: {}
 };
@@ -29,6 +32,12 @@ describe('<AimContainer />', () => {
       const wrapped = wrap(<AimContainer {...props} />);
       expect(wrapped.find(AimNav).length).toBe(1);
     }
+  });
+
+  it('renders <Loading /> when props.configs === null', () => {
+    const props = { ...DEFAULT_PROPS, configs: null };
+    const wrapped = wrap(<AimContainer {...props} />);
+    expect(wrapped.find(Loading).length).toBe(1);
   });
 
   it('renders the proper components for each subroute', () => {
