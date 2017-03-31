@@ -14,15 +14,15 @@ const getOtherStep = (prevState) => {
   return { step: otherStep };
 };
 
-const updateSelectedConfigs = (configId) => (prevState) => {
-  const prevSelectedConfigs = prevState.selectedConfigs;
-  if (prevSelectedConfigs.includes(configId)) {
-    const newSelectedConfigs = prevSelectedConfigs.filter((id) => {
+const updateConfigState = (stateKey, configId) => (prevState) => {
+  const prevConfigs = prevState[stateKey];
+  if (prevConfigs.includes(configId)) {
+    const newConfigs = prevConfigs.filter((id) => {
       return id !== configId;
     });
-    return { selectedConfigs: newSelectedConfigs };
+    return { [stateKey]: newConfigs };
   }
-  return { selectedConfigs: prevSelectedConfigs.concat([configId]) };
+  return { [stateKey]: prevConfigs.concat([configId]) };
 };
 
 const updateConfigScore = (configId, score) => (prevState) => {
@@ -51,11 +51,13 @@ class AddSession extends Component {
     this.state = {
       step: STEPS.chooseConfigs,
       selectedConfigs: [],
+      openConfigs: [],
       scores: {}
     };
 
     this.handleStepChange = this.handleStepChange.bind(this);
     this.handleConfigSelectChange = this.handleConfigSelectChange.bind(this);
+    this.handleConfigOpenChange = this.handleConfigOpenChange.bind(this);
     this.handleUpdateConfigScore = this.handleUpdateConfigScore.bind(this);
   };
 
@@ -65,9 +67,15 @@ class AddSession extends Component {
 
   handleConfigSelectChange(configId) {
     this.setState(
-      updateSelectedConfigs(configId)
+      updateConfigState('selectedConfigs', configId)
     );
   };
+
+  handleConfigOpenChange(configId) {
+    this.setState(
+      updateConfigState('openConfigs', configId)
+    );
+  }
 
   handleUpdateConfigScore(configId, score) {
     this.setState(
@@ -77,7 +85,12 @@ class AddSession extends Component {
 
   render() {
     const { configs } = this.props;
-    const { step, selectedConfigs, scores } = this.state;
+    const {
+      step,
+      selectedConfigs,
+      openConfigs,
+      scores
+    } = this.state;
     if (step === STEPS.chooseConfigs) {
       return (
         <div className='AddSession'>
@@ -86,7 +99,9 @@ class AddSession extends Component {
             selectable={true}
             configs={configs}
             selectedConfigs={selectedConfigs}
+            openConfigs={openConfigs}
             onSelectedConfigsChange={this.handleConfigSelectChange}
+            onOpenConfigsChange={this.handleConfigOpenChange}
           />
           <button onClick={this.handleStepChange}>Next</button>
         </div>

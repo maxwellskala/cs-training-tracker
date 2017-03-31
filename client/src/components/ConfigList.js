@@ -4,21 +4,8 @@ import ConfigListItem from '../components/ConfigListItem';
 class ConfigList extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      openConfig: null,
-    };
 
     this.renderConfigs = this.renderConfigs.bind(this);
-    this.handleConfigOpenChange = this.handleConfigOpenChange.bind(this);
-  };
-
-  handleConfigOpenChange(configId) {
-    this.setState((prevState) => {
-      if (prevState.openConfig === configId) {
-        return { openConfig: null };
-      }
-      return { openConfig: configId };
-    });
   };
 
   renderConfigs() {
@@ -26,12 +13,13 @@ class ConfigList extends Component {
       configs,
       selectable,
       onSelectedConfigsChange,
-      selectedConfigs
+      onOpenConfigsChange,
+      selectedConfigs,
+      openConfigs
     } = this.props;
-    const { openConfig } = this.state;
     return configs.map((config) => {
       const configId = config.id;
-      const open = configId === openConfig;
+      const open = openConfigs.includes(configId);
       const selected = selectedConfigs.includes(configId);
       return (
         <ConfigListItem
@@ -40,7 +28,7 @@ class ConfigList extends Component {
           isOpen={open}
           isSelected={selected}
           selectable={selectable}
-          onOpenChange={this.handleConfigOpenChange}
+          onOpenChange={onOpenConfigsChange}
           onSelectChange={onSelectedConfigsChange}
         />
       );
@@ -63,7 +51,9 @@ ConfigList.propTypes = {
   configs: React.PropTypes.array.isRequired,
   selectable: React.PropTypes.bool.isRequired,
   selectedConfigs: React.PropTypes.array.isRequired,
-  onSelectedConfigsChange: React.PropTypes.func.isRequired
+  openConfigs: React.PropTypes.array.isRequired,
+  onSelectedConfigsChange: React.PropTypes.func.isRequired,
+  onOpenConfigsChange: React.PropTypes.func.isRequired
 };
 
 export default ConfigList;
