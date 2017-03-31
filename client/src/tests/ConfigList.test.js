@@ -32,7 +32,11 @@ const CONFIGS = [
 
 const DEFAULT_PROPS = {
   configs: CONFIGS,
-  selectable: true
+  selectable: true,
+  selectedConfigs: [CONFIGS[0]],
+  openConfigs: [],
+  onSelectedConfigsChange: () => {},
+  onOpenConfigsChange: () => {}
 };
 
 describe('<ConfigList />', () => {
