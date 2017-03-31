@@ -10,6 +10,8 @@ import * as RouteNames from '../constants/RouteNames';
 const DEFAULT_PROPS = {
   user: {},
   onLogout: () => {},
+  fetchConfigs: () => {},
+  configs: [],
   route: { name: RouteNames.AIM_ADD_SESSION },
   router: {}
 };
