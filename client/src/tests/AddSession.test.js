@@ -1,7 +1,8 @@
 import React from 'react';
-import { wrap } from './utils';
-import AddSession from '../components/AddSession';
+import { wrap, wrapAndSetState } from './utils';
+import AddSession, { STEPS } from '../components/AddSession';
 import ConfigList from '../components/ConfigList';
+import EnterScores from '../components/EnterScores';
 
 const CONFIGS = [
   {
@@ -31,18 +32,46 @@ const CONFIGS = [
 ];
 
 describe('<AddSession />', () => {
-  it('renders <ConfigList />', () => {
+  it('renders <ConfigList /> by default', () => {
     const wrapped = wrap(<AddSession configs={CONFIGS} />);
     expect(wrapped.find(ConfigList).length).toBe(1);
   });
 
-  it('renders "Clone previous session" button', () => {
-    const wrapped = wrap(<AddSession configs={CONFIGS} />);
+  it('renders <ConfigList /> and not <EnterScores /> when state.step === STEPS.chooseConfigs', () => {
+    const state = { step: STEPS.chooseConfigs };
+    const wrapped = wrapAndSetState(<AddSession configs={CONFIGS} />, state);
+    expect(wrapped.find(ConfigList).length).toBe(1);
+    expect(wrapped.find(EnterScores).length).toBe(0);
+  });
+
+  it('renders <EnterScores /> and not <ConfigList /> when state.step === STEPS.enterCores', () => {
+    const state = { step: STEPS.enterScores };
+    const wrapped = wrapAndSetState(<AddSession configs={CONFIGS} />, state);
+    expect(wrapped.find(EnterScores).length).toBe(1);
+    expect(wrapped.find(ConfigList).length).toBe(0);
+  });
+
+  it('renders "Clone previous session" button when state.step === STEPS.chooseConfigs', () => {
+    const state = { step: STEPS.chooseConfigs };
+    const wrapped = wrapAndSetState(<AddSession configs={CONFIGS} />, state);
     expect(wrapped.find('button').at(0).text()).toEqual('Clone previous session');
   });
 
-  it('renders "Next" button', () => {
-    const wrapped = wrap(<AddSession configs={CONFIGS} />);
+  it('renders "Next" button when state.step === STEPS.chooseConfigs', () => {
+    const state = { step: STEPS.chooseConfigs };
+    const wrapped = wrapAndSetState(<AddSession configs={CONFIGS} />, state);
     expect(wrapped.find('button').at(1).text()).toEqual('Next');
+  });
+
+  it('renders "Back" button when state.step === STEPS.enterScores', () => {
+    const state = { step: STEPS.enterScores };
+    const wrapped = wrapAndSetState(<AddSession configs={CONFIGS} />, state);
+    expect(wrapped.find('button').at(0).text()).toEqual('Back');
+  });
+
+  it('renders "Save" button when state.step === STEPS.enterScores', () => {
+    const state = { step: STEPS.enterScores };
+    const wrapped = wrapAndSetState(<AddSession configs={CONFIGS} />, state);
+    expect(wrapped.find('button').at(1).text()).toEqual('Save');
   });
 });

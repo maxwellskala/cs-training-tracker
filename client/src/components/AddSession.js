@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import ConfigList from '../components/ConfigList';
 import EnterScores from '../components/EnterScores';
 
-const STEPS = {
+export const STEPS = {
   chooseConfigs: 'chooseConfigs',
   enterScores: 'enterScores'
-};
+}; // exported for testing
 
 const getOtherStep = (prevState) => {
   const otherStep = prevState.step === STEPS.chooseConfigs
