@@ -1,50 +1,36 @@
-import React, { Component } from 'react';
+import React from 'react';
 import ConfigListItem from '../components/ConfigListItem';
 
-class ConfigList extends Component {
-  constructor(props) {
-    super(props);
-
-    this.renderConfigs = this.renderConfigs.bind(this);
-  };
-
-  renderConfigs() {
-    const {
-      configs,
-      selectable,
-      onSelectedConfigsChange,
-      onOpenConfigsChange,
-      selectedConfigs,
-      openConfigs
-    } = this.props;
-    return configs.map((config) => {
-      const configId = config.id;
-      const open = openConfigs.includes(configId);
-      const selected = selectedConfigs.includes(configId);
-      return (
-        <ConfigListItem
-          key={configId}
-          config={config}
-          isOpen={open}
-          isSelected={selected}
-          selectable={selectable}
-          onOpenChange={onOpenConfigsChange}
-          onSelectChange={onSelectedConfigsChange}
-        />
-      );
-    });
-  }
-
-  render() {
+const ConfigList = ({
+  configs,
+  selectable,
+  selectedConfigs,
+  openConfigs,
+  onSelectedConfigsChange,
+  onOpenConfigsChange
+}) => {
+  const body = configs.map((config) => {
+    const configId = config.id;
+    const open = openConfigs.includes(configId);
+    const selected = selectedConfigs.includes(configId);
     return (
-      <div className='ConfigList'>
-        <h3>Configs</h3>
-        <ul>
-          {this.renderConfigs()}
-        </ul>
-      </div>
+      <ConfigListItem
+        key={configId}
+        config={config}
+        isOpen={open}
+        isSelected={selected}
+        selectable={selectable}
+        onOpenChange={onOpenConfigsChange}
+        onSelectChange={onSelectedConfigsChange}
+      />
     );
-  };
+  });
+  return (
+    <div className='ConfigList'>
+      <h3>Configs</h3>
+      <ul>{body}</ul>
+    </div>
+  );
 };
 
 ConfigList.propTypes = {
