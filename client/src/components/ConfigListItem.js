@@ -2,7 +2,7 @@ import React from 'react';
 
 const renderSettings = (config) => {
   return Object.keys(config).map((key) => {
-    if (key === 'user') {
+    if (key === 'user' || key === 'id') {
       return null;
     }
     return (
