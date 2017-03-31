@@ -9,13 +9,13 @@ const renderScoreInputs = (configScores, onUpdateConfigScore) => {
     onUpdateConfigScore(configId, parsedScore);
   };
 
-  return configScores.map((score) => (
-    <tr key={score.name}>
-      <td>{score.name}</td>
+  return configScores.map(({id, name, score, maximum}) => (
+    <tr key={name}>
+      <td>{name}</td>
       <td>
-        <input type='text' value={score.score} onChange={onChange(score.id)} />
+        <input type='text' value={score} onChange={onChange(id)} />
       </td>
-      <td>{score.maximum}</td>
+      <td>{maximum}</td>
     </tr>
   ));
 }
