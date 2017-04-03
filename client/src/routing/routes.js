@@ -8,7 +8,8 @@ const routes = [
   { name: RouteNames.AIM, path: '/aim' },
   { name: RouteNames.AIM_ADD_SESSION, path: '/add-session' },
   { name: RouteNames.AIM_HISTORY, path: '/history' },
-  { name: RouteNames.AIM_ADD_CONFIG, path: '/add-config' }
+  { name: RouteNames.AIM_VIEW_CONFIGS, path: '/configs' },
+  { name: RouteNames.AIM_ADD_CONFIG, path: '/add' }
 ];
 
 export default routes;
