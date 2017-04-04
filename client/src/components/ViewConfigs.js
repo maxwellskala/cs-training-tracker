@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router5';
-import ConfigList from '../components/ConfigList';
+import ConfigList from './ConfigList';
 import { updateConfigState } from '../utils/stateReducers';
 import * as RouteNames from '../constants/RouteNames';
 
