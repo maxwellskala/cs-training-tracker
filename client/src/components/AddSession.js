@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ConfigList from '../components/ConfigList';
 import EnterScores from '../components/EnterScores';
+import { updateConfigState } from '../utils/stateReducers';
 
 export const STEPS = {
   chooseConfigs: 'chooseConfigs',
@@ -12,17 +13,6 @@ const getOtherStep = (prevState) => {
     ? STEPS.enterScores
     : STEPS.chooseConfigs;
   return { step: otherStep };
-};
-
-const updateConfigState = (stateKey, configId) => (prevState) => {
-  const prevConfigs = prevState[stateKey];
-  if (prevConfigs.includes(configId)) {
-    const newConfigs = prevConfigs.filter((id) => {
-      return id !== configId;
-    });
-    return { [stateKey]: newConfigs };
-  }
-  return { [stateKey]: prevConfigs.concat([configId]) };
 };
 
 const updateConfigScore = (configId, score) => (prevState) => {

@@ -12,17 +12,20 @@ const ConfigList = ({
   const body = configs.map((config) => {
     const configId = config.id;
     const open = openConfigs.includes(configId);
-    const selected = selectedConfigs.includes(configId);
+    const selected = selectable && selectedConfigs.includes(configId);
+    const props = {
+      key: configId,
+      config,
+      isOpen: open,
+      isSelected: selected,
+      selectable,
+      onOpenChange: onOpenConfigsChange
+    };
+    if (selectable && onSelectedConfigsChange) {
+      props.onSelectChange = onSelectedConfigsChange;
+    }
     return (
-      <ConfigListItem
-        key={configId}
-        config={config}
-        isOpen={open}
-        isSelected={selected}
-        selectable={selectable}
-        onOpenChange={onOpenConfigsChange}
-        onSelectChange={onSelectedConfigsChange}
-      />
+      <ConfigListItem {...props} />
     );
   });
   return (
@@ -36,9 +39,9 @@ const ConfigList = ({
 ConfigList.propTypes = {
   configs: React.PropTypes.array.isRequired,
   selectable: React.PropTypes.bool.isRequired,
-  selectedConfigs: React.PropTypes.array.isRequired,
+  selectedConfigs: React.PropTypes.array,
   openConfigs: React.PropTypes.array.isRequired,
-  onSelectedConfigsChange: React.PropTypes.func.isRequired,
+  onSelectedConfigsChange: React.PropTypes.func,
   onOpenConfigsChange: React.PropTypes.func.isRequired
 };
 
