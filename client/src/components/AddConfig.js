@@ -27,6 +27,8 @@ const renderFieldInputs = () => {
   });
 };
 
+export { CONFIG_FIELDS }; // for testing
+
 export default () => {
   return (
     <div className='AddConfig'>

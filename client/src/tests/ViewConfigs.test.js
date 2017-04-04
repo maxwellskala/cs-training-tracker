@@ -1,6 +1,6 @@
 import React from 'react';
-import { wrap } from './utils';
 import { Link } from 'react-router5';
+import { wrap } from './utils';
 import ViewConfigs from '../components/ViewConfigs';
 import ConfigList from '../components/ConfigList';
 
