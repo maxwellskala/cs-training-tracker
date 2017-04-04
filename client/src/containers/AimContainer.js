@@ -31,13 +31,16 @@ class AimContainer extends Component {
     const body = configs === null
       ? Loading
       : COMPONENTS[route.name];
+    const props = route.name === RouteNames.AIM_ADD_CONFIG
+      ? {}
+      : { configs };
     return (
       <div className='Aim'>
         <aside>
           <AimNav route={route} router={router} />
         </aside>
         <main>
-          {createElement(body, { configs })}
+          {createElement(body, props)}
           <button onClick={onLogout}>Log out</button>
         </main>
       </div>
