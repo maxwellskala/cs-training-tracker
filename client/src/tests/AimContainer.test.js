@@ -1,10 +1,6 @@
 import React from 'react';
 import { wrap } from './utils';
 import { AimContainer, COMPONENTS as SUBROUTES } from '../containers/AimContainer';
-import AddSession from '../components/AddSession';
-import History from '../components/History';
-import ViewConfigs from '../components/ViewConfigs';
-import AddConfig from '../components/AddConfig';
 import Loading from '../components/Loading';
 import AimNav from '../components/AimNav';
 import * as RouteNames from '../constants/RouteNames';
