@@ -52,7 +52,9 @@ const ConfigListItem = ({
   onOpenChange,
   onSelectChange
 }) => {
-  const handleSelectChange = () => onSelectChange(config.id);
+  const handleSelectChange = selectable
+    ? () => onSelectChange(config.id)
+    : () => {};
   const onClick = () => onOpenChange(config.id);
   return (
     <li className='ConfigListItem'>
@@ -69,7 +71,7 @@ ConfigListItem.propTypes = {
   isSelected: React.PropTypes.bool.isRequired,
   selectable: React.PropTypes.bool.isRequired,
   onOpenChange: React.PropTypes.func.isRequired,
-  onSelectChange: React.PropTypes.func.isRequired
+  onSelectChange: React.PropTypes.func
 };
 
 export default ConfigListItem;
