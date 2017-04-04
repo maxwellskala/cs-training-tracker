@@ -3,6 +3,7 @@ import { routeNode } from 'react-router5';
 import AimNav from '../components/AimNav';
 import AddSession from '../components/AddSession';
 import History from '../components/History';
+import ViewConfigs from '../components/ViewConfigs';
 import AddConfig from '../components/AddConfig';
 import Loading from '../components/Loading';
 import * as RouteNames from '../constants/RouteNames';
@@ -11,6 +12,7 @@ const COMPONENTS = {
   [RouteNames.AIM]: AddSession, // @TODO make this unnecessary, it sucks
   [RouteNames.AIM_ADD_SESSION]: AddSession,
   [RouteNames.AIM_HISTORY]: History,
+  [RouteNames.AIM_VIEW_CONFIGS]: ViewConfigs,
   [RouteNames.AIM_ADD_CONFIG]: AddConfig
 };
 
