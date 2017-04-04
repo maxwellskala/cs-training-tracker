@@ -1,8 +1,9 @@
 import React from 'react';
 import { wrap } from './utils';
-import { AimContainer } from '../containers/AimContainer';
+import { AimContainer, COMPONENTS as SUBROUTES } from '../containers/AimContainer';
 import AddSession from '../components/AddSession';
 import History from '../components/History';
+import ViewConfigs from '../components/ViewConfigs';
 import AddConfig from '../components/AddConfig';
 import Loading from '../components/Loading';
 import AimNav from '../components/AimNav';
@@ -15,13 +16,6 @@ const DEFAULT_PROPS = {
   configs: [],
   route: { name: RouteNames.AIM_ADD_SESSION },
   router: {}
-};
-
-const SUBROUTES = {
-  [RouteNames.AIM]: AddSession,
-  [RouteNames.AIM_ADD_SESSION]: AddSession,
-  [RouteNames.AIM_HISTORY]: History,
-  [RouteNames.AIM_ADD_CONFIG]: AddConfig
 };
 
 describe('<AimContainer />', () => {
