@@ -12,7 +12,7 @@ const AimNav = ({ route, router }) => {
         History
       </BaseLink>
       <BaseLink router={router} routeName={RouteNames.AIM_VIEW_CONFIGS}>
-        Add config
+        Configs
       </BaseLink>
     </div>
   );
