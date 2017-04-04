@@ -1,5 +1,5 @@
 import React, { Component, createElement } from 'react';
-import { routeNode } from 'react-router5';
+import { withRoute } from 'react-router5';
 import AimNav from '../components/AimNav';
 import AddSession from '../components/AddSession';
 import History from '../components/History';
@@ -55,4 +55,4 @@ AimContainer.propTypes = {
 };
 
 export { AimContainer }; // for testing
-export default routeNode(RouteNames.AIM)(AimContainer);
+export default withRoute(AimContainer);
